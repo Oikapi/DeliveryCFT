@@ -1,0 +1,47 @@
+.main-header-container {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+header.header-nav {
+    width: 66%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 24px;
+    padding: 24px 0px;
+}
+
+
+
+.left-nav-container nav a {
+    padding-right: 32px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+a img {
+    position: relative;
+    top: 5px;
+    margin-right: 16px;
+}
+
+a.home-link img {
+    position: relative;
+    top: 10px;
+    margin-right: 0;
+}
+
+a.exit-link {
+    margin-top: auto;
+}
+
+.exit-link-container {
+    margin-top: auto;
+}
