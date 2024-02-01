@@ -1,22 +1,38 @@
 import "./mainPage.css"
-import { useReducer, useState } from "react";
-import { Button, SvgIcon, TextField, ToggleButton, createSvgIcon } from "@mui/material";
-import { Box, FormControl, FormLabel, Option, Select } from "@mui/joy";
-import { Tab, TabPanel, Tabs, TabsList } from "@mui/base";
+import { useEffect, useReducer, useState } from "react";
+import { Button, SvgIcon, TextField, ToggleButton, createSvgIcon, Menu, MenuItem, } from "@mui/material";
+import { Box, FormControl, FormLabel, MenuButton, Option, Select } from "@mui/joy";
+import { Dropdown, Tab, TabPanel, Tabs, TabsList } from "@mui/base";
+
 
 function reducerSize(state, action) {
+    console.log(state, action)
+    if (action.type === "change_all") {
+        return {
+            ...action.payload
+        }
+    }
     if (action.type === "change_length") {
         return {
-            ...state, length: action.payload
+            ...state, length: action.payload, name: "Свой размер"
         }
     }
     if (action.type === "change_width") {
+        return {
+            ...state, width: action.payload, name: "Свой размер"
+        }
 
     }
     if (action.type === "change_height") {
+        return {
+            ...state, height: action.payload, name: "Свой размер"
+        }
 
     }
     if (action.type === "change_weight") {
+        return {
+            ...state, weight: action.payload, name: "Свой размер"
+        }
 
     }
 }
@@ -52,15 +68,27 @@ const MainPage = () => {
         ,
         "To"
     )
-
-    const [cityFrom, changeCityFrom] = useState("Cанкт-Петербург")
-    const [cityTo, changeCityTo] = useState("Новосибирск")
     const [packageSize, dispatch] = useReducer(reducerSize, {
-        length: 17,
-        width: 12,
-        height: 9,
-        weight: 5
     })
+    const [packageTypes, setPackageTypes] = useState([])
+    useEffect(() => {
+        fetch("https://shift-backend.onrender.com/delivery/package/types")
+            .then((res) => res.json())
+            .then((packTypes) => {
+                setPackageTypes(packTypes.packages)
+                dispatch({ type: "change_all", payload: packTypes.packages[0] })
+            })
+    }, [])
+    const [cityFrom, changeCityFrom] = useState("Санкт-Петербург")
+    const [cityTo, changeCityTo] = useState("Новосибирск")
+    const [accurateSize, changeAccurateSize] = useState({
+        length: "",
+        width: "",
+        height: "",
+        weight: ""
+    })
+
+    const [isSizeMenuOpen, setSizeMenu] = useState(false)
     return (
         <div className="main-container">
             <div className="center-container">
@@ -88,7 +116,6 @@ const MainPage = () => {
                             <Select
                                 value={cityFrom}
                                 variant="plain"
-                                defaultValue={"dog"}
                                 indicator={<ArrowDownIcon fontSize={"lg"} />}
                                 startDecorator={<FromIcon />
                                 }
@@ -111,7 +138,6 @@ const MainPage = () => {
                             <Select
                                 value={cityTo}
                                 variant="plain"
-                                defaultValue={"dog"}
                                 indicator={<ArrowDownIcon fontSize={"lg"} />}
                                 startDecorator={<ToLogo />
                                 }
@@ -130,67 +156,64 @@ const MainPage = () => {
                             </div>
                         </label>
                         <label >Размер поссылки
-                            <Select
-                                variant="plain"
-                                defaultValue={`${packageSize.length}x${packageSize.width}x${packageSize.height}`}
-                                indicator={<ArrowDownIcon fontSize={"lg"} />}
-                                startDecorator={<MailIcon />
-                                }
-                                value={`${packageSize.length}x${packageSize.width}x${packageSize.height}`}
-                                className="custom-select"
-                                onChange={(e, value) => console.log(`${packageSize.length}x${packageSize.width}x${packageSize.height}`)}
-                            >
-                                <Option value="17x12x9" style={{ display: "none" }}>Короб XS, 17х12х9 см</Option>
-                                <Option value="23х9х10" style={{ display: "none" }}>Короб S, 23х9х10 см</Option>
-                                <Option value="42х36х5" style={{ display: "none" }}>Конверт, 42х36х5 см</Option>
-                                <Option value="33х25х15" style={{ display: "none" }}>Короб M, 33х25х15 см</Option>
-                                <Option value="32х25х38" style={{ display: "none" }}>Короб L, 32х25х38 см</Option>
-                                <Option value="60х35х30" style={{ display: "none" }}>Короб XL, 60х35х30 см</Option>
-                                <Option value="60х60х30" style={{ display: "none" }}>Большой короб, 60х60х30 см</Option>
-                                <Option value="55х35х77" style={{ display: "none" }}>Чемодан, 55х35х77 см</Option>
-                                <Option value="120х120х80" style={{ display: "none" }}>Палета, 120х120х80 см</Option>
-                                <Tabs defaultValue={1} >
-                                    <TabsList className="custom-tabs">
-                                        <Tab value={1}>Примерные</Tab>
-                                        <Tab value={2}>Точные</Tab>
-                                    </TabsList>
-                                    <TabPanel value={1}>
-                                        <Option value="42х36х5">Конверт, 42х36х5 см</Option>
-                                        <Option value="17х12х9">Короб XS, 17х12х9 см</Option>
-                                        <Option value="23х9х10">Короб S, 23х9х10 см</Option>
-                                        <Option value="33х25х15">Короб M, 33х25х15 см</Option>
-                                        <Option value="32х25х38">Короб L, 32х25х38 см</Option>
-                                        <Option value="60х35х30">Короб XL, 60х35х30 см</Option>
-                                        <Option value="60х60х30">Большой короб, 60х60х30 см</Option>
-                                        <Option value="55х35х77">Чемодан, 55х35х77 см</Option>
-                                        <Option value="120х120х80">Палета, 120х120х80 см</Option>
-                                    </TabPanel>
-                                    <TabPanel value={2}>
-                                        <div className="accurate-size">
-                                            <FormControl onChange={(e) => console.log(e)}>
-                                                <div className="accurate-size-each">
-                                                    <FormLabel onChange={(e) => dispatch({ type: "change_length", payload: e.value })}>Длинна</FormLabel>
-                                                    <TextField placeholder="cм"></TextField>
-                                                </div>
-                                                <div className="accurate-size-each">
-                                                    <FormLabel>Ширина</FormLabel>
-                                                    <TextField placeholder="cм"></TextField>
-                                                </div>
-                                                <div className="accurate-size-each">
-                                                    <FormLabel>Высота</FormLabel>
-                                                    <TextField placeholder="cм"></TextField>
-                                                </div>
-                                                <div className="accurate-size-each">
-                                                    <FormLabel>Вес</FormLabel>
-                                                    <TextField placeholder="cм"></TextField>
-                                                </div>
-                                            </FormControl>
-                                        </div>
-                                    </TabPanel>
-                                </Tabs>
+                            <div>
+                                <Dropdown
+                                >
+                                    <MenuButton
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
+                                        onClose={(e) => console.log(e)}
+                                        startDecorator={<MailIcon />}
+                                        className={"size-picking-btn"}
+                                        sx={{ paddingInline: "12px 8px" }}
+                                        endDecorator={<ArrowDownIcon fontSize={"lg"} />}
+                                        onClick={() => setSizeMenu(prev => !prev)}
+                                    >
+                                        <p>{`${packageSize.name}, ${packageSize.length}x${packageSize.width}x${packageSize.height} см`}</p>
 
-                            </Select>
+                                    </MenuButton>
+                                    <Menu
+                                        onClose={(e, reason) => { if (reason === "backdropClick") setSizeMenu(false) }}
+                                        open={isSizeMenuOpen}
+                                    >
+                                        <MenuItem className="">
+                                            <Tabs defaultValue={1} >
+                                                <TabsList className="custom-tabs">
+                                                    <Tab value={1}>Примерные</Tab>
+                                                    <Tab value={2}>Точные</Tab>
+                                                </TabsList>
+                                                <TabPanel value={1} className="sizes-buttons">
+                                                    {packageTypes.map((el) => <Button value={el.name} onClick={() => dispatch({ type: "change_all", payload: el })} variant="plain">{`${el.name}, ${el.length}x${el.width}x${el.height}`}</Button>)}
+                                                </TabPanel>
+                                                <TabPanel value={2}>
+                                                    <div className="accurate-size" >
+                                                        <FormControl onChange={(e) => console.log(e.target.id)}>
 
+                                                            <div className="accurate-size-each">
+                                                                <FormLabel >Длина</FormLabel>
+                                                                <TextField placeholder="cм" onChange={(e) => dispatch({ type: "change_length", payload: e.target.value })}></TextField>
+                                                            </div>
+                                                            <div className="accurate-size-each">
+                                                                <FormLabel>Ширина</FormLabel>
+                                                                <TextField placeholder="cм" onChange={(e) => dispatch({ type: "change_width", payload: e.target.value })}></TextField>
+                                                            </div>
+                                                            <div className="accurate-size-each">
+                                                                <FormLabel>Высота</FormLabel>
+                                                                <TextField placeholder="cм" onChange={(e) => dispatch({ type: "change_height", payload: e.target.value })}></TextField>
+                                                            </div>
+                                                            <div className="accurate-size-each">
+                                                                <FormLabel>Вес</FormLabel>
+                                                                <TextField placeholder="кг" onChange={(e) => dispatch({ type: "change_weight", payload: e.target.value })}></TextField>
+                                                            </div>
+                                                        </FormControl>
+                                                    </div>
+                                                </TabPanel>
+                                            </Tabs>
+                                        </MenuItem>
+                                    </Menu>
+
+                                </Dropdown>
+                            </div>
                         </label>
                         <Button className="sub-btn" >Расчитать</Button>
                     </form>

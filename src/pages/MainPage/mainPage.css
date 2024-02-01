@@ -160,7 +160,7 @@ label {
     background-color: white;
 }
 
-.accurate-size form {
+.accurate-size {
     display: flex;
     flex-direction: column;
 }
@@ -195,4 +195,45 @@ label {
 
 .accurate-size-each:first-child {
     padding-top: 8px;
+}
+
+.sizes-buttons button {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: none;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 6px 12px;
+}
+
+.sizes-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+}
+
+.size-picking-btn {
+
+    display: flex;
+    justify-content: left;
+    padding-left: 12px;
+
+    gap: 4px;
+    width: 100%;
+}
+
+.size-picking-btn>* {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.size-picking-btn :last-child {
+    margin-left: auto;
 }
