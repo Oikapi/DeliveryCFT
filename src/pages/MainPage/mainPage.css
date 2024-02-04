@@ -217,23 +217,28 @@ label {
     width: 320px;
 }
 
-.size-picking-btn {
-
+button.size-picking-btn {
+    color: black;
     display: flex;
     justify-content: left;
     padding-left: 12px;
-
+    text-decoration: none;
+    text-transform: none;
     gap: 4px;
     width: 100%;
+    border: 1px solid #CED2DA;
+    border-radius: 8px;
+
 }
 
-.size-picking-btn>* {
+button.size-picking-btn>* {
     font-family: Inter;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
 }
 
-.size-picking-btn :last-child {
+button.size-picking-btn :nth-last-child(-n+1) {
     margin-left: auto;
+    font-size: 16px;
 }
