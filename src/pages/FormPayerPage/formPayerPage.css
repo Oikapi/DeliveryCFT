@@ -1,0 +1,31 @@
+.payer-form-radios label {
+    display: flex;
+    align-items: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.payer-form-radios {
+    margin-bottom: 40px;
+}
+
+.payer-container {
+    width: 66%;
+}
+
+.payer-container h2 {
+    margin-top: 48px;
+    margin-bottom: 24px;
+}
+
+.payer-container form {
+    display: flex;
+    flex-direction: column;
+    width: 464px;
+
+}

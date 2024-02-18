@@ -10,10 +10,11 @@ import { SelectCityFrom } from "./components/SelectCityFrom";
 import { SelectCityTo } from "./components/SelectCityTo";
 import { fetchPoints } from "../../store/pointsSlice";
 import { changePackageAll, changePackageField } from "../../store/selectedDataSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const MainPage = () => {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const selectedPackage = useSelector(state => state.selectedData.package)
     const packageTypes = useSelector(state => state.packageTypes.packageTypes)
@@ -140,7 +141,7 @@ const MainPage = () => {
                                 </Dropdown>
                             </div>
                         </label>
-                        <Button className="sub-btn" >Расчитать</Button>
+                        <Button className="sub-btn" onClick={() => navigate("/form-cost")}>Расчитать</Button>
                     </form>
 
                 </div >

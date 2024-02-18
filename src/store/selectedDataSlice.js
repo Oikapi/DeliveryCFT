@@ -22,7 +22,32 @@ const selectedDataSlice = createSlice({
           id:0,
           latitude: 0,
           longitude:0
-          }
+          },
+        receiver: {
+            firstname: "",
+            lastname: "",
+            middlename: "",
+            phone: ""
+          },
+        sender : {
+          firstname: "",
+            lastname: "",
+            middlename: "",
+            phone: ""
+        },
+        receiverAddress: {
+          street: "",
+          house: "",
+          appartament: "",
+          comment: ""
+        },
+        senderAddress: {
+          street: "",
+          house: "",
+          appartament: "",
+          comment: ""
+        },
+        payer: ""
     },
     reducers:{
       changePackageAll:(state,action) => {
@@ -40,8 +65,25 @@ const selectedDataSlice = createSlice({
         console.log(state,action)
         state.receiverPoint = action.payload
       },
+      changeReciever: (state,action) => {
+        console.log(action.payload)
+        state.receiver = action.payload
+      },
+      changeSender: (state,action) => {
+        console.log(action.payload)
+        state.sender = action.payload
+      },
+      changeReceiverAddress: (state,action) => {
+        state.receiverAddress = action.payload
+      },
+      changeSenderAddress : (state,action) =>{
+        state.senderAddress = action.payload
+      },
+      changePayer : (state,action) => {
+        state.payer = action.payload
+      }
     }
 })
 
 export default selectedDataSlice.reducer
-export const {changeReceiverPoint,changeSenderPoint,changePackageField,changePackageAll} = selectedDataSlice.actions
+export const {changeReceiverPoint,changeSenderPoint,changePackageField,changePackageAll,changeReciever,changeSender,changeReceiverAddress,changePayer,changeSenderAddress} = selectedDataSlice.actions

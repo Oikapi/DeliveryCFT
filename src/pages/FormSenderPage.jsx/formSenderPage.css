@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.second-step-form {
+    width: 66%;
+}
+
+.second-step-form h2 {
+    margin-top: 48px;
+    margin-bottom: 24px;
+}
+
+.second-step-form form {
+    display: flex;
+    flex-direction: column;
+    width: 464px;
+
+}
+
+
+.second-step-form form :nth-child(even) {
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+
+    margin-bottom: 24px;
+}
+
+.second-step-form form :nth-child(odd) {
+    margin-bottom: 6px;
+    font-weight: 400px;
+}
+
+.second-step-form form :last-child {
+    margin-bottom: 40px;
+}
+
+
+input {
+    border: 1px solid #CED2DA;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.nav-buttons button {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0em;
+    padding: 16px;
+    width: 220px;
+    height: 56px;
+    padding: 16px, 32px, 16px, 32px;
+    border-radius: 32px;
+    border: 1px solid #CED2DA;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.nav-buttons {
+    width: 464px;
+    display: flex;
+    justify-content: space-between;
+}

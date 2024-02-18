@@ -45,3 +45,11 @@ a.exit-link {
 .exit-link-container {
     margin-top: auto;
 }
+
+.active {
+    color: #1975FF;
+}
+
+.active img {
+    fill: #1975FF;
+}
